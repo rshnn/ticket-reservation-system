@@ -21,8 +21,10 @@
 		String command = "SELECT * FROM Users WHERE username= '" + username + "' and password= '" + password + "' ";
 		ResultSet result = statement.executeQuery(command);
 		
+			
 		if (result.next()) {
 			session.setAttribute("Username", username);
+			
 			response.sendRedirect("Home.jsp");
 		} else {
 			out.println("Invalid information. <a href='LogIn.jsp'>Please try again</a>");

@@ -11,6 +11,11 @@
 <body>
 	<br>
 	<form method="post" action="Registered.jsp">
+		
+		<h1>Ticket Reservation System</h1>
+		<h4>Group 4</h4>	
+		
+		
 		<table>
 			<tr>
 				<td>Username</td>
@@ -22,9 +27,12 @@
 					required></td>
 			</tr>
 		</table>
+		
+		
+		
 		<br> <input type="submit" value="Log In">
 	</form>
 	<br>
-	<a href="Register.jsp">New User? Register Here.</a>
+	<a href="Registration/Register.jsp">New User? Register Here.</a>
 </body>
 </html>

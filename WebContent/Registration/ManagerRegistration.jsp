@@ -25,6 +25,14 @@
 		String newcity 		= request.getParameter("newcity");
 		String newstate 	= request.getParameter("newstate");
 		String newzipcode 	= request.getParameter("newzipcode");
+		String newssn 		= request.getParameter("newssn");
+		String newhourlyRate= request.getParameter("newhourlyRate");
+		
+		
+		/* Account creation date */
+		long millis=System.currentTimeMillis();
+		java.sql.Date newdate= new java.sql.Date(millis);
+
 		
 		
 		
@@ -35,15 +43,17 @@
 			out.println("Username already exists. <a href='Register.jsp'> Register with new username.</a>");
 			connection.close();
 		} else {
-			String command2 = "INSERT INTO Users (username, password, firstName, lastName, phone, address, city, state, zipCode) VALUES ('" + 
+			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
+							"phone, address, city, state, zipCode, ssn, hourlyRate, creationDate, startDate) VALUES ('Manager', '" + 
 									newusername + "','" + newpassword + "','" + 
 									newfirstname + "','" + newlastname + "','" + 
 									newphone + "','" + newaddress + "','" + 
 									newcity + "','" + newstate + "','" + 
-									newzipcode + "')";
+									newzipcode + "','" + newssn + "', " +
+									newhourlyRate + ",'" + newdate + "','" + newdate + "')";
 			
 			statement.executeUpdate(command2);
-			out.println("Registration is successful!  <a href='LogIn.jsp'> Log In Here</a>");
+			out.println("Registration is successful!  <a href='../LogIn.jsp'> Log In Here</a>");
 			connection.close();
 		}
 	%>

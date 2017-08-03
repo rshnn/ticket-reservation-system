@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,10 +9,26 @@
 <title>Ticket Reservation System: Login or Register</title>
 </head>
 <body>
-	<p>Ticket Reservation System - Group 4</p>
+	<h1>Ticket Reservation System</h1>
+	<h4>Group 4</h4>
 	<ul>
 		<li><a href="LogIn.jsp">Log In</a></li>
-		<li><a href="Register.jsp">Register</a></li>
+		<li><a href="Registration/Register.jsp">Register</a></li>
 	</ul>
+	
+		
+		<p> hi
+			<%
+			long millis=System.currentTimeMillis();
+
+			java.sql.Date d= new java.sql.Date(millis);
+
+			//	java.sql.Date currentDate = new Date();
+				out.println(d.toString());
+			%>
+			
+		</p>
+	
+	
 </body>
 </html>
