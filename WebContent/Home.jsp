@@ -9,8 +9,10 @@
 <title>Welcome to Ticket Reservation System</title>
 </head>
 <body>
+	<!-- Login Fail case  -->
 	<%
-		if ((session.getAttribute("Username") == null) || (session.getAttribute("Username") == "")) {
+		/* Failed to log in.  Username returned was null or blank. */
+		if ((session.getAttribute("username") == null) || (session.getAttribute("username") == "")) {
 	%>
 	You are not logged in.
 	<br>
@@ -19,14 +21,35 @@
 		}
 		else {
 	%>
+	
+	<!-- Login Success case -->
 	<h1>Welcome to Ticket Reservation System!</h1>
-	<h3>
+	<h4>
 		You are currently logged in as
-		<%=session.getAttribute("Username")%>
-	</h3>
+		<%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
+	</h4>
 	<%
+		
+		Object role = session.getAttribute("userType");
+	
+		if(role.equals("Customer")){
+			%> <a>Continue to Customer home page</a> <%
+		
+		}else if(role.equals("CustomerRep")){
+			%> <a>Continue to Customer Representative home page</a> <%
+			
+		}else if(role.equals("Manager")){
+			%> <a href='HomePages/ManagerHome.jsp'>Continue to Manager home page</a> <%
+		}
+	
+	
+	
+	
+	
+	
 		}
 	%>
+	<br><br>
 	<a href='LogOut.jsp'>Log out</a>
 </body>
 </html>

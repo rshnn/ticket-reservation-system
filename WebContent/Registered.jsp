@@ -23,7 +23,11 @@
 		
 			
 		if (result.next()) {
-			session.setAttribute("Username", username);
+			/* Get role and username.  Add to session */
+
+			session.setAttribute("username", username);
+			String role = result.getString("userType");
+			session.setAttribute("userType", role);
 			
 			response.sendRedirect("Home.jsp");
 		} else {
