@@ -21,22 +21,39 @@
 <div align="right"><a href='../LogOut.jsp'>Log out</a></div>
 
 
-<h3>Employee Management</h3>
+<h3>Flight Information</h3>
+<div align='right'><a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a></div> <br>
 
-<h4>List of all employees (including hourly rates)</h4>
+<h4>List of reservations for
+<%=request.getParameter("flightNumber")%>
+</h4>
+
 <%
 
-try{
+/* try{ */
+
+		String flightNumber = request.getParameter("flightNumber");
+
+		
 		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/TicketReservationSystem";
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
 		
 		Statement statement = connection.createStatement();
-		String command = "SELECT * FROM Users WHERE userType='CustomerRep' or userType='Manager'";
+		
+		/* Big ass query.  Joins tables and merges days_occurs into one column */
+		String command = "select username, resNo, dateReserved, concat(airlineID, flightNumber) flightinfo, dominter, "+ 
+				"passengers, ticketID, seatNo, meal, totalFare, bookingFee, type "+
+				"from Purchases "+
+					"join Reservations using (resNo) "+
+				    "join Tickets using (ticketID) "+
+				    "join Users using (username) "+
+				    "join Flight_operates using (airlineID, flightNumber) "+
+				"where flightNumber='"+ flightNumber +"'";
 		ResultSet result = statement.executeQuery(command);
 
-		
+		/*"+ request.getParameter("username") +"  */
 		//Make an HTML table to show the results in:
 		out.print("<table border='1'>");
 
@@ -45,62 +62,64 @@ try{
 		
 		//make a column
 		out.print("<td>");
-		out.print("First Name");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("Last Name");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
 		out.print("username");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("User Type");
+		out.print("Reservation Number");
 		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Reservation Date");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Flight");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Domestic/International");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Passenger Count");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Ticket ID");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Seat Number");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Meal Type");
+		out.print("</td>");
+		
+		//make a column
+		out.print("<td>");
+		out.print("Total Fare");
+		out.print("</td>");
+		
 
 		//make a column
 		out.print("<td>");
-		out.print("SSN");
+		out.print("Booking Fee");
 		out.print("</td>");
+		
 		
 		//make a column
 		out.print("<td>");
-		out.print("Hourly Rate");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("Start Date");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("Phone Number");
-		out.print("</td>");
-
-		//make a column
-		out.print("<td>");
-		out.print("Address");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("City");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("State");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("ZipCode");
+		out.print("Reservation Type");
 		out.print("</td>");
 		
 		out.print("</tr>");
@@ -112,40 +131,40 @@ try{
 			out.print("<tr>");
 			//make a column
 			out.print("<td>");
-			out.print(result.getString("firstName"));
-			out.print("</td>");
-			out.print("<td>");
-			out.print(result.getString("lastName"));
-			out.print("</td>");
-			out.print("<td>");
 			out.print(result.getString("username"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("userType"));
+			out.print(result.getString("resNo"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("ssn"));
+			out.print(result.getString("dateReserved"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("hourlyRate"));
+			out.print(result.getString("flightinfo"));
+			out.print("</td>");
+			out.print("<td>");
+			out.print(result.getString("dominter"));
+			out.print("</td>");
+			out.print("<td>");
+			out.print(result.getString("passengers"));
 			out.print("</td>");
 			out.print("<td>");			
-			out.print(result.getString("startDate"));
+			out.print(result.getString("ticketID"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("phone"));
+			out.print(result.getString("seatNo"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("address"));
+			out.print(result.getString("meal"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("city"));
+			out.print(result.getString("totalFare"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("state"));
+			out.print(result.getString("bookingFee"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("ZipCode"));
+			out.print(result.getString("type"));
 			out.print("</td>");
 			out.print("</tr>");
 		}
@@ -154,9 +173,10 @@ try{
 		result.close();
 		statement.close();
 		connection.close();
-} catch (Exception e){
+		
+/* } catch (Exception e){
 	
-}
+} */
 
 %>
 
@@ -166,3 +186,4 @@ try{
 
 </body>
 </html>
+

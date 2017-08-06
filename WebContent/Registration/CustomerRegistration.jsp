@@ -41,7 +41,7 @@
 		if (result.next()) {
 			out.println("Username already exists. <a href='Register.jsp'> Register with new username.</a>");
 			connection.close();
-		} else {
+		} else if((session.getAttribute("userType").equals("Manager"))) {
 			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
 							"phone, address, city, state, zipCode, email, CCNumber, creationDate) VALUES ('Customer', '" + 
 									newusername + "','" + newpassword + "','" + 
@@ -52,9 +52,26 @@
 									newCCNumber + "','" + newdate + "')";
 			
 			statement.executeUpdate(command2);
-			out.println("Registration is successful!  <a href='../LogIn.jsp'> Log In Here</a>");
+			out.println("New customer successfully added.  <a href='../HomePages/ManagerHome.jsp'> Back to manager home.</a>");
 			connection.close();
+			
+		} else if((session.getAttribute("userType").equals("CustomerRep"))) {
+			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
+					"phone, address, city, state, zipCode, email, CCNumber, creationDate) VALUES ('Customer', '" + 
+							newusername + "','" + newpassword + "','" + 
+							newfirstname + "','" + newlastname + "','" + 
+							newphone + "','" + newaddress + "','" + 
+							newcity + "','" + newstate + "','" + 
+							newzipcode + "','" + newemail + "','" +
+							newCCNumber + "','" + newdate + "')";
+	
+			statement.executeUpdate(command2);
+			out.println("New customer successfully added.  <a href='../HomePages/CustomerRepHome.jsp'> Back to manager home.</a>");
+			connection.close();
+			
+			
 		}
+
 	%>
 </body>
 </html>
