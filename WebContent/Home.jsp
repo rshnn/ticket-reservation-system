@@ -23,7 +23,7 @@
 	%>
 	
 	<!-- Login Success case -->
-	<h1>Welcome to Ticket Reservation System!</h1>
+	<h1 align="center">Welcome to Ticket Reservation System!</h1>
 	<h4>
 		You are currently logged in as
 		<%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
@@ -41,9 +41,6 @@
 		}else if(role.equals("Manager")){
 			%> <a href='HomePages/ManagerHome.jsp'>Continue to Manager home page</a> <%
 		}
-	
-	
-	
 	
 	
 	

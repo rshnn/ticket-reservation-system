@@ -41,7 +41,10 @@
 		if (result.next()) {
 			out.println("Username already exists. <a href='Register.jsp'> Register with new username.</a>");
 			connection.close();
-		} else {
+		} else 	if ((session.getAttribute("username") == null) || (session.getAttribute("username") == "")) {
+
+			/* No session active */
+			
 			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
 							"phone, address, city, state, zipCode, ssn, hourlyRate, creationDate, startDate) VALUES ('CustomerRep', '" + 
 									newusername + "','" + newpassword + "','" + 
@@ -53,6 +56,35 @@
 			
 			statement.executeUpdate(command2);
 			out.println("Registration is successful!  <a href='../LogIn.jsp'> Log In Here</a>");
+			connection.close();
+		} else if((session.getAttribute("userType").equals("Manager"))) {
+			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
+					"phone, address, city, state, zipCode, ssn, hourlyRate, creationDate, startDate) VALUES ('CustomerRep', '" + 
+							newusername + "','" + newpassword + "','" + 
+							newfirstname + "','" + newlastname + "','" + 
+							newphone + "','" + newaddress + "','" + 
+							newcity + "','" + newstate + "','" + 
+							newzipcode + "','" + newssn + "', " +
+							newhourlyRate + ",'" + newdate + "','" + newdate + "')";
+	
+			statement.executeUpdate(command2);
+			
+			out.println("New employee (Customer Representative) successfully added.  <a href='../HomePages/ManagerHome.jsp'> Back to manager home.</a>");
+			connection.close();
+			
+		} else if((session.getAttribute("userType").equals("CustomerRep"))) {
+			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
+					"phone, address, city, state, zipCode, ssn, hourlyRate, creationDate, startDate) VALUES ('CustomerRep', '" + 
+							newusername + "','" + newpassword + "','" + 
+							newfirstname + "','" + newlastname + "','" + 
+							newphone + "','" + newaddress + "','" + 
+							newcity + "','" + newstate + "','" + 
+							newzipcode + "','" + newssn + "', " +
+							newhourlyRate + ",'" + newdate + "','" + newdate + "')";
+	
+			statement.executeUpdate(command2);
+			
+			out.println("New employee (Customer Representative) successfully added.  <a href='../HomePages/CustomerRepHome.jsp'> Back to customer representative home.</a>");
 			connection.close();
 		}
 	%>
