@@ -15,11 +15,22 @@
 
 <h1 align="center">Ticket Reservation System</h1>
 <h2 align="center">Manager Home Page</h2>
-<h4 align="right"> Logged in as 
-<%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
-</h4>
-<div align="right"><a href='../LogOut.jsp'>Log out</a></div>
 
+<div align="right"> <b> Logged in as 
+<%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
+</b> <br>
+<a href='../LogOut.jsp'>Log out</a>
+</div>
+
+
+<!-- testing cancel.jsp -->
+TODO REMOVE THIS:<br>
+Testing Cancel.jsp.
+<form method="post" action="Cancel.jsp">
+	ResNo: <input type="text" name="ResNo">
+	<input type="submit" value="Submit"><br>
+TODO REMOVE THIS
+</form>
 
 
 <!------------------------>
@@ -33,7 +44,7 @@
 
 <br><br>
 <!-- Add employee -->
-<a>Add a new employee:</a>
+<b>Add a new employee:</b>
 <div>
 	<form method="post" action="../Registration/NewUserType.jsp">
 		<input type="radio" name=userType value="Manager">Manager <br>
@@ -76,9 +87,10 @@ Edit customer info
 <!-- View all flights -->
 <a href="../ManagerFunctionality/ViewFlights.jsp">View all flights</a>
 
-<br>
+<br><br>
 <!-- View all flight reservations by customer or flightNumber-->
 <div>
+	<b>Find Flight Reservation by: </b>
 	<form method="post" action="../ManagerFunctionality/ViewFlightsCustomer.jsp">
 		Customer's Name (First Last)<input type="text" name=fullname>
 	<input type="submit" value="Search">
@@ -91,13 +103,27 @@ Edit customer info
 </div>
 
 
+<!-- View all flights touching an airport -->
+<br>
+<div>
+	<b>Find all flights at the following airport: </b>
+	<form method="post" action="../ManagerFunctionality/ViewFlightsAirport.jsp">
+		AirportID (3 character code)<input type="text" name=airportID>
+	<input type="submit" value="Search">
+	</form>
+</div>
+
+
 
 <br>
-Flights from a given airport
-<br>
-Show all customers on given flight
-
-
+<!-- Show all customers on given flight -->
+<div>
+	<b>Show all customers who have reserved seats on: </b>
+	<form method="post" action="../ManagerFunctionality/ViewCustomersOnFlight.jsp">
+		AirlineID and FlightNumber (Ex: UA2221)<input type="text" name=flight>
+	<input type="submit" value="Search">
+	</form>
+</div>
 
 
 

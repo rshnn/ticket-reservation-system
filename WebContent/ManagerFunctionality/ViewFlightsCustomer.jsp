@@ -15,11 +15,12 @@
 
 <h1 align="center">Ticket Reservation System</h1>
 <h2 align="center">Manager Home Page</h2>
-<h4 align="right"> Logged in as 
-<%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
-</h4>
-<div align="right"><a href='../LogOut.jsp'>Log out</a></div>
 
+<div align="right"> <b> Logged in as 
+<%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
+</b> <br>
+<a href='../LogOut.jsp'>Log out</a>
+</div>
 
 <h3>Flight Information</h3>
 <div align='right'><a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a></div> <br>

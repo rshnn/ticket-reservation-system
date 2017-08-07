@@ -22,18 +22,19 @@
 <a href='../LogOut.jsp'>Log out</a>
 </div>
 
+
 <h3>Flight Information</h3>
 <div align='right'><a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a></div> <br>
 
-<h4>List of reservations for
-<%=request.getParameter("flightNumber")%>
+<h4>List of flights touching 
+<%=request.getParameter("airportID")%>
 </h4>
 
 <%
 
 /* try{ */
 
-		String flightNumber = request.getParameter("flightNumber");
+		String airportID = request.getParameter("airportID");
 
 		
 		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/TicketReservationSystem";
@@ -44,17 +45,21 @@
 		Statement statement = connection.createStatement();
 		
 		/* Big ass query.  Joins tables and merges days_occurs into one column */
-		String command = "select username, resNo, dateReserved, concat(airlineID, flightNumber) flightinfo, dominter, "+ 
-				"passengers, ticketID, seatNo, meal, totalFare, bookingFee, type "+
-				"from Purchases "+
-					"join Reservations using (resNo) "+
-				    "join Tickets using (ticketID) "+
-				    "join Users using (username) "+
-				    "join Flight_operates using (airlineID, flightNumber) "+
-				"where flightNumber='"+ flightNumber +"'";
+		String command = "select name, airlineID, flightNumber, group_concat(weekday) weekdays, dominter, " +
+				"deptairport, deptDateTime, arrairport, arrivalDateTime, seatCount, fare " +
+				"from Flight_operates  " +
+					"join Airlines using (airlineID)  " +
+				    "join Days_occurs using (airlineID, flightNumber) " +
+				   " left outer join " +
+						"(select airportID deptairport, deptDateTime, flightNumber, airlineID from Depart) d    " +
+							"using (airlineID, flightNumber) " +
+				    "left outer join "+
+						"(select airportID arrairport, arrivalDateTime, flightNumber, airlineID from Arrive) a    " +
+							"using (airlineID, flightNumber) " +
+				"where (deptairport='" + airportID + "' or arrairport='" + airportID + "') "+
+				"group by airlineID, flightNumber";
 		ResultSet result = statement.executeQuery(command);
 
-		/*"+ request.getParameter("username") +"  */
 		//Make an HTML table to show the results in:
 		out.print("<table border='1'>");
 
@@ -63,22 +68,22 @@
 		
 		//make a column
 		out.print("<td>");
-		out.print("username");
+		out.print("Airline Name");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Reservation Number");
+		out.print("AirlineID");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Reservation Date");
+		out.print("Flight Number");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Flight");
+		out.print("Operating Days");
 		out.print("</td>");
 		
 		//make a column
@@ -88,39 +93,33 @@
 		
 		//make a column
 		out.print("<td>");
-		out.print("Passenger Count");
+		out.print("Departing Airport");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Ticket ID");
+		out.print("Departing Time");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Seat Number");
+		out.print("Arrival Airport");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Meal Type");
+		out.print("Arrival Time");
 		out.print("</td>");
 		
 		//make a column
 		out.print("<td>");
-		out.print("Total Fare");
-		out.print("</td>");
-		
-
-		//make a column
-		out.print("<td>");
-		out.print("Booking Fee");
+		out.print("Seat Count");
 		out.print("</td>");
 		
 		
 		//make a column
 		out.print("<td>");
-		out.print("Reservation Type");
+		out.print("Fare");
 		out.print("</td>");
 		
 		out.print("</tr>");
@@ -132,40 +131,37 @@
 			out.print("<tr>");
 			//make a column
 			out.print("<td>");
-			out.print(result.getString("username"));
+			out.print(result.getString("name"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("resNo"));
+			out.print(result.getString("airlineID"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("dateReserved"));
+			out.print(result.getString("flightNumber"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("flightinfo"));
+			out.print(result.getString("weekdays"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("dominter"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("passengers"));
+			out.print(result.getString("deptairport"));
 			out.print("</td>");
 			out.print("<td>");			
-			out.print(result.getString("ticketID"));
+			out.print(result.getString("deptDateTime"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("seatNo"));
+			out.print(result.getString("arrairport"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("meal"));
+			out.print(result.getString("arrivalDateTime"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("totalFare"));
+			out.print(result.getString("seatCount"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("bookingFee"));
-			out.print("</td>");
-			out.print("<td>");
-			out.print(result.getString("type"));
+			out.print(result.getString("fare"));
 			out.print("</td>");
 			out.print("</tr>");
 		}
