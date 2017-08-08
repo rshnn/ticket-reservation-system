@@ -120,7 +120,7 @@ Edit customer info
 <div>
 	<b>Show all customers who have reserved seats on: </b>
 	<form method="post" action="../ManagerFunctionality/ViewCustomersOnFlight.jsp">
-		AirlineID and FlightNumber (Ex: UA2221)<input type="text" name=flight>
+		AirlineID and FlightNumber (Ex: 'UA2221')<input type="text" name=flight>
 	<input type="submit" value="Search">
 	</form>
 </div>
@@ -134,14 +134,47 @@ Edit customer info
 <!--SALES AND REVENUE  --->
 <!------------------------>
 <h3>Sales and Revenue</h3>
-Revenue summary of: <br>
-	(a) a particular flight <br>
-	(b) destination city <br>
-	(c) particular customer <br>
-<br>
-Obtain sales report for month.
-<br>
 
+<div>
+	<b>Get revenue summary of: </b>
+	<form method="post" action="../ManagerFunctionality/RevenueByFlight.jsp">
+		A flight (Ex. 'UA2221') <input type="text" name=flight>
+	<input type="submit" value="Calculate">
+	</form>
+	
+	<form method="post" action="../ManagerFunctionality/RevenueByCity.jsp">
+		A destination city (Ex. 'Newark', 'Atlanta', 'Tokyo') <input type="text" name=city>
+	<input type="submit" value="Calculate">
+	</form>
+	
+	<form method="post" action="../ManagerFunctionality/RevenueByCustomer.jsp">
+		A customer (by username) <input type="text" name=username>
+	<input type="submit" value="Calculate">
+	</form>
+</div>
+
+
+	
+
+
+
+
+
+<br><br>
+Obtain sales report for month.
+
+
+<!-- Most revenue generating customers -->
+<br><br>
+<a href="../ManagerFunctionality/StarCustomers.jsp">Who are the star customers?!</a>
+(Customers that generated the most revenue)
+<br><br>
+
+
+
+<!-- Most active flights (most reservations) -->
+<a href="../ManagerFunctionality/MostActiveFlight.jsp">What is the most active flight?</a>
+(Flight with the most reservations)
 
 
 </body>
