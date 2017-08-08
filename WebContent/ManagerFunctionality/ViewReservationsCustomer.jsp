@@ -25,35 +25,38 @@
 <h3>Flight Information</h3>
 <div align='right'><a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a></div> <br>
 
-<h4>List of reservations for
-<%=request.getParameter("flightNumber")%>
+<h4>List of ticket reservations for
+<%=request.getParameter("fullname")%>
 </h4>
 
 <%
 
 /* try{ */
 
-		String flightNumber = request.getParameter("flightNumber");
-
+		String fullname = request.getParameter("fullname");
+		String name[] = fullname.split(" "); 
 		
-		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/TicketReservationSystem";
+		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
 		
 		Statement statement = connection.createStatement();
 		
-		/* Big ass query.  Joins tables and merges days_occurs into one column */
 		String command = "select username, resNo, dateReserved, concat(airlineID, flightNumber) flightinfo, dominter, "+ 
-				"passengers, ticketID, seatNo, meal, totalFare, bookingFee, type "+
+				"passengers, group_concat(ticketID) ticketID, group_concat(seatNo) seatNos, group_concat(meal) meal, totalFare, bookingFee, type "+
 				"from Purchases "+
 					"join Reservations using (resNo) "+
 				    "join Tickets using (ticketID) "+
 				    "join Users using (username) "+
 				    "join Flight_operates using (airlineID, flightNumber) "+
-				"where flightNumber='"+ flightNumber +"'";
+				"where firstName='"+ name[0] +"'"+
+				    "and lastName='"+name[1] + "' " + 
+				"group by resNo";
 		ResultSet result = statement.executeQuery(command);
 
+		
+			
 		/*"+ request.getParameter("username") +"  */
 		//Make an HTML table to show the results in:
 		out.print("<table border='1'>");
@@ -98,7 +101,7 @@
 		
 		//make a column
 		out.print("<td>");
-		out.print("Seat Number");
+		out.print("Seat Number(s)");
 		out.print("</td>");
 		
 		//make a column
@@ -153,7 +156,7 @@
 			out.print(result.getString("ticketID"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("seatNo"));
+			out.print(result.getString("seatNos"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("meal"));

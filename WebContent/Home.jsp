@@ -33,10 +33,10 @@
 		Object role = session.getAttribute("userType");
 	
 		if(role.equals("Customer")){
-			%> <a>Continue to Customer home page</a> <%
+			%> <a href='HomePages/CustomerHome.jsp'>Continue to Customer home page</a> <%
 		
 		}else if(role.equals("CustomerRep")){
-			%> <a>Continue to Customer Representative home page</a> <%
+			%> <a href='HomePages/CustomerRepHome.jsp'>Continue to Customer Representative home page</a> <%
 			
 		}else if(role.equals("Manager")){
 			%> <a href='HomePages/ManagerHome.jsp'>Continue to Manager home page</a> <%

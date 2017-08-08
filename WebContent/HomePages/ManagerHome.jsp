@@ -23,16 +23,6 @@
 </div>
 
 
-<!-- testing cancel.jsp -->
-TODO REMOVE THIS:<br>
-Testing Cancel.jsp.
-<form method="post" action="Cancel.jsp">
-	ResNo: <input type="text" name="ResNo">
-	<input type="submit" value="Submit"><br>
-TODO REMOVE THIS
-</form>
-
-
 <!------------------------>
 <!-- EMPLOYEE MANAGEMENT-->
 <!------------------------>
@@ -91,12 +81,12 @@ Edit customer info
 <!-- View all flight reservations by customer or flightNumber-->
 <div>
 	<b>Find Flight Reservation by: </b>
-	<form method="post" action="../ManagerFunctionality/ViewFlightsCustomer.jsp">
+	<form method="post" action="../ManagerFunctionality/ViewReservationsCustomer.jsp">
 		Customer's Name (First Last)<input type="text" name=fullname>
 	<input type="submit" value="Search">
 	</form>
 	
-	<form method="post" action="../ManagerFunctionality/ViewFlightsFlightNumber.jsp">
+	<form method="post" action="../ManagerFunctionality/ViewReservationsFlightNumber.jsp">
 		Flight Number <input type="text" name=flightNumber>
 	<input type="submit" value="Search">
 	</form>
@@ -138,17 +128,17 @@ Edit customer info
 <div>
 	<b>Get revenue summary of: </b>
 	<form method="post" action="../ManagerFunctionality/RevenueByFlight.jsp">
-		A flight (Ex. 'UA2221') <input type="text" name=flight>
+		INCOMPLETE: A flight (Ex. 'UA2221') <input type="text" name=flight>
 	<input type="submit" value="Calculate">
 	</form>
 	
 	<form method="post" action="../ManagerFunctionality/RevenueByCity.jsp">
-		A destination city (Ex. 'Newark', 'Atlanta', 'Tokyo') <input type="text" name=city>
+		INCOMPLETE: A destination city (Ex. 'Newark', 'Atlanta', 'Tokyo') <input type="text" name=city>
 	<input type="submit" value="Calculate">
 	</form>
 	
 	<form method="post" action="../ManagerFunctionality/RevenueByCustomer.jsp">
-		A customer (by username) <input type="text" name=username>
+		INCOMPLETE: A customer (by username) <input type="text" name=username>
 	<input type="submit" value="Calculate">
 	</form>
 </div>
@@ -161,7 +151,7 @@ Edit customer info
 
 
 <br><br>
-Obtain sales report for month.
+INCOMPLETE: Obtain sales report for month.
 
 
 <!-- Most revenue generating customers -->

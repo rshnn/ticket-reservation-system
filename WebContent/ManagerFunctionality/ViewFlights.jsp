@@ -30,7 +30,7 @@
 <%
 
 try{
-		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/TicketReservationSystem";
+		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
@@ -38,18 +38,16 @@ try{
 		Statement statement = connection.createStatement();
 		
 		/* Big ass query.  Joins tables and merges days_occurs into one column */
-		String command = "select name, airlineID, flightNumber, group_concat(weekday) weekdays, dominter, "+
-				"deptairport, deptDateTime, arrairport, arrivalDateTime, seatCount, fare "+
-				"from Flight_operates "+
-					"join Airlines using (airlineID) "+
-				    "join Days_occurs using (airlineID, flightNumber)"+
-				    "left outer join "+
-						"(select airportID deptairport, deptDateTime, flightNumber, airlineID from Depart) d   "+
-							"using (airlineID, flightNumber)"+
-				    "left outer join "+
-						"(select airportID arrairport, arrivalDateTime, flightNumber, airlineID from Arrive) a   "+
-							"using (airlineID, flightNumber)"+
-				"group by airlineID, flightNumber";
+		String command = "select name, concat(airlineID, flightNumber) flight, group_concat(weekday) weekdays, dominter, " +
+				"deptairportID, deptTime, arrairportID, arrivalTime, seatCount, fare  " +
+				"from Flight_operates " +
+			    "join Airlines using (airlineID) " +
+			    "join Days_occurs using (airlineID, flightNumber) " +
+			    "join Runs using (airlineID, flightNumber) " +
+			    "join Routes using (routeID) " +
+			    "join Depart using (routeID) " +
+			    "join Arrive using (routeID) " +
+			"group by routeID";
 		ResultSet result = statement.executeQuery(command);
 
 		
@@ -66,12 +64,7 @@ try{
 		
 		//make a column
 		out.print("<td>");
-		out.print("AirlineID");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("Flight Number");
+		out.print("Flight");
 		out.print("</td>");
 		
 		//make a column
@@ -127,10 +120,7 @@ try{
 			out.print(result.getString("name"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("airlineID"));
-			out.print("</td>");
-			out.print("<td>");
-			out.print(result.getString("flightNumber"));
+			out.print(result.getString("flight"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("weekdays"));
@@ -139,16 +129,16 @@ try{
 			out.print(result.getString("dominter"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("deptairport"));
+			out.print(result.getString("deptairportID"));
 			out.print("</td>");
 			out.print("<td>");			
-			out.print(result.getString("deptDateTime"));
+			out.print(result.getString("deptTime"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("arrairport"));
+			out.print(result.getString("arrairportID"));
 			out.print("</td>");
 			out.print("<td>");
-			out.print(result.getString("arrivalDateTime"));
+			out.print(result.getString("arrivalTime"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("seatCount"));
