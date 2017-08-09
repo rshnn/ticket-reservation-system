@@ -161,7 +161,8 @@
 		
 	
 		out.println("<br>Succssfully purchased new ticket!<br>" + 
-				" <br>TicketID : " + ticketID);
+				" <br>TicketID : " + ticketID +
+				" for " + airlineID + flightNumber);
 	
 	
 		passengerCount--;
@@ -169,7 +170,8 @@
 
 	out.println("<br><br>Succssfully added new reservation!" + 
 			" <br>Reservation Number : " + resNo + 
-			" <br>Customer Rep : " + rep_username);
+			" <br>Customer Rep : " + rep_username + 
+			" <br>Total Cost : "+ totalFare);
 
 
 

@@ -145,7 +145,7 @@
 			
 			
 			<input type="submit" value="Book it!"> <br>
-			Click only once please!
+			Click only once and be patient please!
 		</form>
 		
 	<% 

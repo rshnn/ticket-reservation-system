@@ -85,7 +85,7 @@
 	*/
 	
 	String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
-	Connection connection = null;totalPurchase
+	Connection connection = null;
 	Class.forName("com.mysql.jdbc.Driver");
 	connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
 	Statement statement = connection.createStatement();
@@ -148,10 +148,10 @@
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
 		statement = connection.createStatement();
 		
-		String command_tix = "insert into Tickets (seatNo, seatType, meal, class, deptDateTime, arrivalDateTime, deptAirportID, arrAirportID, cust_username) values " + 
+		String command_tix_dept = "insert into Tickets (seatNo, seatType, meal, class, deptDateTime, arrivalDateTime, deptAirportID, arrAirportID, cust_username) values " + 
 								"( 1, '"+dept_seatType+"', '"+dept_meal+"',  '"+dept_seatclass+"',  '"+dept_deptDateTime+"',  '"+dept_arrivalDateTime+"', " +
 								" '"+dept_deptairportID+"',  '"+dept_arrairportID+"', '"+cust_username+"');";
-		statement.executeUpdate(command_tix); 
+		statement.executeUpdate(command_tix_dept); 
 		connection.close();
 		
 		
@@ -188,8 +188,9 @@
 		connection.close();
 		
 	
-		out.println("<br>Succssfully purchased new departing ticket!<br>" + 
-				" <br>TicketID : " + dept_ticketID);
+		out.println("<br>Succssfully purchased new departing ticket!" + 
+				" <br>TicketID : " + dept_ticketID + 
+				" for " + dept_airlineID + dept_flightNumber);
 	
 	
 		
@@ -207,10 +208,10 @@
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
 		statement = connection.createStatement();
 		
-		String command_tix = "insert into Tickets (seatNo, seatType, meal, class, deptDateTime, arrivalDateTime, deptAirportID, arrAirportID, cust_username) values " + 
+		String command_tix_ret = "insert into Tickets (seatNo, seatType, meal, class, deptDateTime, arrivalDateTime, deptAirportID, arrAirportID, cust_username) values " + 
 								"( 1, '"+ret_seatType+"', '"+ret_meal+"',  '"+ret_seatclass+"',  '"+ret_deptDateTime+"',  '"+ret_arrivalDateTime+"', " +
 								" '"+ret_deptairportID+"',  '"+ret_arrairportID+"', '"+cust_username+"');";
-		statement.executeUpdate(command_tix); 
+		statement.executeUpdate(command_tix_ret); 
 		connection.close();
 		
 		
@@ -247,8 +248,9 @@
 		connection.close();
 		
 	
-		out.println("<br>Succssfully purchased new departing ticket!<br>" + 
-				" <br>TicketID : " + ret_ticketID);
+		out.println("<br>Succssfully purchased new returning ticket!" + 
+				" <br>TicketID : " + ret_ticketID + 
+				" for "+ ret_airlineID + ret_flightNumber );
 	
 
 
@@ -262,7 +264,8 @@
 
 	out.println("<br><br>Succssfully added new reservation!" + 
 			" <br>Reservation Number : " + resNo + 
-			" <br>Customer Rep : " + rep_username);
+			" <br>Customer Rep : " + rep_username + 
+			" <br>Total Cost : $"+ totalPurchase);
 
 
 
