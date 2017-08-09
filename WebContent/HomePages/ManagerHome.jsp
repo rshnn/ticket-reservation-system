@@ -72,10 +72,17 @@ Edit customer info
 <!------------------------>
 <!-- FLIGHT INFORMATION -->
 <!------------------------>
-<h3>Flight Information</h3>
+<h3>Flight and Reservation Information</h3>
 
 <!-- View all flights -->
 <a href="../ManagerFunctionality/ViewFlights.jsp">View all flights</a>
+
+
+<!-- View all reservations -->
+<br><br>
+<a href="../ManagerFunctionality/ViewReservations.jsp">View all reservations</a>
+
+
 
 <br><br>
 <!-- View all flight reservations by customer or flightNumber-->

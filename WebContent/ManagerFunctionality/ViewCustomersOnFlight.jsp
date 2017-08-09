@@ -34,7 +34,7 @@
 		String flight = request.getParameter("flight");
 
 		
-		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/TicketReservationSystem";
+		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
@@ -42,20 +42,11 @@
 		Statement statement = connection.createStatement();
 		
 		/* Big ass query.  Joins tables and merges days_occurs into one column */
-		String command = "select concat(airlineID, flightNumber) flight, dominter, arrairport, deptairport, " +
-				"firstName, lastName, username, " +
+		String command = "select username, concat(airlineID, flightNumber) flight, firstName, lastName,  " +
 				"resNo, ticketID, totalFare, dateReserved, CCNumber, email, phone " +
-			"from Flight_operates  " +
-				"join Purchases using(airlineID, flightNumber) " +
-			    "join Users using (username) " +
-				"join Reservations using (resNo) " +
-			    "left outer join  " +
-					"(select airportID deptairport, deptDateTime, flightNumber, airlineID from Depart) d   " +
-						"using (airlineID, flightNumber) " +
-			    "left outer join  " +
-					"(select airportID arrairport, arrivalDateTime, flightNumber, airlineID from Arrive) a    " +
-						"using (airlineID, flightNumber) " +
-			"where concat(airlineID, flightNumber)='" + flight + "'";
+				"from Purchases join Users using (username) join Reservations using (resNo) " +
+				"where concat(airlineID, flightNumber)='UA2221' " +
+				"group by username ";
 		ResultSet result = statement.executeQuery(command);
 
 		
@@ -69,9 +60,7 @@
 			
 			%>
 			<h4>List of customers on 
-				<%=result.getString("flight")%> going from
-				<%=result.getString("deptairport")%>  to 
-				<%=result.getString("arrairport")%>  
+				<%=result.getString("flight")%>
 			</h4>
 			
 			<%

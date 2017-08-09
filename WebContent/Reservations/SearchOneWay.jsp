@@ -111,6 +111,7 @@ try{
 		out.print("<td>");
 		%>
 		<form method='post' action='ReserveOneWay.jsp'>
+			<input type="number" name="reserveThisPassengers" placeholder="# Passengers">
 			<input name="reserveThisFlight" value="<%=result.getString("flight")%>" hidden>
 			<input name="reserveThisRouteID" value="<%=result.getString("routeID")%>" hidden>
 			<input name="reserveThisWeekday" value="<%=result.getString("weekday")%>" hidden>			

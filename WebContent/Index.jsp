@@ -9,6 +9,13 @@
 <title>Ticket Reservation System: Login or Register</title>
 </head>
 <body>
+
+<%
+session.setAttribute("username", null);
+session.setAttribute("userType", null);
+
+%>
+
 	<h1>Ticket Reservation System</h1>
 	<h4>Group 4</h4>
 	<ul>

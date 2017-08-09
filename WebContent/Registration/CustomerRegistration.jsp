@@ -10,7 +10,7 @@
 </head>
 <body>
 	<%
-		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/TicketReservationSystem";
+		String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
@@ -41,7 +41,24 @@
 		if (result.next()) {
 			out.println("Username already exists. <a href='Register.jsp'> Register with new username.</a>");
 			connection.close();
-		} else if((session.getAttribute("userType").equals("Manager"))) {
+
+		}else if ((session.getAttribute("userType") == null)){
+			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
+					"phone, address, city, state, zipCode, email, CCNumber, creationDate) VALUES ('Customer', '" + 
+							newusername + "','" + newpassword + "','" + 
+							newfirstname + "','" + newlastname + "','" + 
+							newphone + "','" + newaddress + "','" + 
+							newcity + "','" + newstate + "','" + 
+							newzipcode + "','" + newemail + "','" +
+							newCCNumber + "','" + newdate + "')";
+	
+			statement.executeUpdate(command2);
+			out.println("Registration successfull!.  <a href='../Index.jsp'> Log in here.</a>");
+			connection.close();
+						
+		} 
+		
+		else if((session.getAttribute("userType").equals("Manager"))) {
 			String command2 = "INSERT INTO Users (userType, username, password, firstName, lastName, "+
 							"phone, address, city, state, zipCode, email, CCNumber, creationDate) VALUES ('Customer', '" + 
 									newusername + "','" + newpassword + "','" + 
