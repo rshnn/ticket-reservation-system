@@ -25,6 +25,22 @@
 	<h3>Search for a flight and make a reservation:</h3>
 	<a href="../Reservations/SearchOneWay.jsp">Search all One-Way flights</a><br>
 
+
+	<!-- Search all multi-city flights (all routes of one flight) -->
+	<a href="../Reservations/SearchMultiCity.jsp">Search all Multi-City flights</a><br>
+
+
+	<!-- Search for dom/inter flights -->
+	<br><br><b>Filter by Domestic or International Flights: </b>
+	<form method="post" action="../Reservations/SearchDomInter.jsp">
+		<input type="radio" name="dominter" value="Domestic">Domestic<br>
+		<input type="radio" name="dominter" value="International">International<br>
+		
+		<input type="submit" value="Search">
+	</form>
+
+
+
 	<!-- Search for all round trip -->
 	
 	<%
@@ -78,6 +94,8 @@
 
 
 
+	
+	
 	
 	<ul>
 		<li><a href="../Reservations/Reservation.jsp">Reserve</a></li>
