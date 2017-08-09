@@ -94,7 +94,7 @@ Edit customer info
 	</form>
 	
 	<form method="post" action="../ManagerFunctionality/ViewReservationsFlightNumber.jsp">
-		Flight Number <input type="text" name=flightNumber>
+		Flight Number (Ex. 2221) <input type="text" name=flightNumber>
 	<input type="submit" value="Search">
 	</form>
 </div>

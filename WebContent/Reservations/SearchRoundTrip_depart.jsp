@@ -18,12 +18,20 @@
 	<a href='../LogOut.jsp'>Log out</a>
 	</div>
 	
-	<h2>One-Way flights listing</h2>
+	<h2>
+		Round-Trip flight listings from 
+		<%=request.getParameter("depart_airportID")%> to 
+		<%=request.getParameter("dest_airportID")%>
+	</h2>
 	
 <%
 
 
 try{
+	
+	String depart_airportID = request.getParameter("depart_airportID");
+	String dest_airportID = request.getParameter("dest_airportID");
+	
 	String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
 	Connection connection = null;
 	Class.forName("com.mysql.jdbc.Driver");
@@ -31,18 +39,21 @@ try{
 	
 	Statement statement = connection.createStatement();
 	
-	String command = "select name, concat(airlineID, flightNumber) flight, weekday, dominter,  " +
-			"deptairportID, deptTime, arrairportID, arrivalTime, seatCount, fare, routeID  " +
-			"from Flight_operates " +
-		    "join Airlines using (airlineID) " +
-		    "join Days_occurs using (airlineID, flightNumber) " +
-		    "join Runs using (airlineID, flightNumber) " +
-		    "join Routes using (routeID) " +
-		    "join Depart using (routeID) " +
-		    "join Arrive using (routeID)";
-	ResultSet result = statement.executeQuery(command); 
+	String command_depart = "select name, concat(airlineID, flightNumber) flight, weekday, dominter, " +
+			"deptairportID, deptTime, arrairportID, arrivalTime, seatCount, fare, routeID " +
+			"from Routes join Depart using (routeID) " +
+			"join Arrive using (routeID) " +
+			"join Runs using (routeID) " +
+			"join Flight_operates using (airlineID, flightNumber) " +
+			"join Days_occurs using (airlineID, flightNumber) " +
+			"join Airlines using (airlineID) " +
+			"where deptairportID='"+depart_airportID+"' " +
+			"and arrairportID='"+ dest_airportID +"'";
+	ResultSet result_depart = statement.executeQuery(command_depart); 
 
 	//Make an HTML table to show the results in:
+
+	out.println("<b>Select a departing flight from "+depart_airportID+" to "+dest_airportID+" :</b><br>");
 	out.print("<table border='1'>");
 
 	//make a row
@@ -101,64 +112,68 @@ try{
 	
 	out.print("</tr>");
 	
-	
 	//parse out the results
-	while (result.next()) {
+	while (result_depart.next()) {
 		
 		//make a row
 		out.print("<tr>");
 		//make a column
 		out.print("<td>");
 		%>
-		<form method='post' action='ReserveOneWay.jsp'>
-			<input name="reserveThisFlight" value="<%=result.getString("flight")%>" hidden>
-			<input name="reserveThisRouteID" value="<%=result.getString("routeID")%>" hidden>
-			<input name="reserveThisWeekday" value="<%=result.getString("weekday")%>" hidden>			
-			<input type="submit" value="Book">
+		<form method='post' action='SearchRoundTrip_return.jsp'>
+			<input name="departFlight" value="<%=result_depart.getString("flight")%>" hidden>
+			<input name="departRouteID" value="<%=result_depart.getString("routeID")%>" hidden>
+			<input name="departWeekday" value="<%=result_depart.getString("weekday")%>" hidden>
+			<input name="departdeptTime" value="<%=result_depart.getString("deptTime")%>" hidden>
+
+				
+			<input name="depart_airportID" value="<%=depart_airportID%>" hidden>
+			<input name="dest_airportID" value="<%=dest_airportID%>" hidden>
+					
+			<input type="submit" value="Select">
 		</form>
 		<%
 		
 		out.print("</td>");
 		
 		out.print("<td>");
-		out.print(result.getString("name"));
+		out.print(result_depart.getString("name"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("flight"));
+		out.print(result_depart.getString("flight"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("weekday"));
+		out.print(result_depart.getString("weekday"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("dominter"));
+		out.print(result_depart.getString("dominter"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("deptairportID"));
+		out.print(result_depart.getString("deptairportID"));
 		out.print("</td>");
 		out.print("<td>");			
-		out.print(result.getString("deptTime"));
+		out.print(result_depart.getString("deptTime"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("arrairportID"));
+		out.print(result_depart.getString("arrairportID"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("arrivalTime"));
+		out.print(result_depart.getString("arrivalTime"));
 		out.print("</td>");
 		out.print("<td>");
-		out.print(result.getString("fare"));		
+		out.print(result_depart.getString("fare"));		
 		out.print("</td>");
 		out.print("</tr>");
 	}
 	out.print("</table>");
 	
-	result.close();
+	result_depart.close();
 	statement.close();
 	connection.close();
 	
 } catch (Exception e){
 
 }
-
 
 
 

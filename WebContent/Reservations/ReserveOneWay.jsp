@@ -26,7 +26,6 @@
  --%>
 <%
 	String flight 			= request.getParameter("reserveThisFlight");
-	String numPassengers 	= request.getParameter("reserveThisPassengers");
 	String routeID 			= request.getParameter("reserveThisRouteID");
 	String weekday 			= request.getParameter("reserveThisWeekday");
 	
@@ -52,35 +51,117 @@
 	ResultSet result_myflight = statement.executeQuery(command); 
 
 	
+
+	
+	
+	
 	if(result_myflight.next()){
 		int fare = result_myflight.getInt("fare");
 		String dominter = result_myflight.getString("dominter");
+		String deptairportID = result_myflight.getString("deptairportID");
+		String arrairportID = result_myflight.getString("arrairportID");
+		String deptTime = result_myflight.getString("deptTime");
+		String arrivalTime = result_myflight.getString("arrivalTime");
+		String airlineID = result_myflight.getString("airlineID");
+		int flightNumber = result_myflight.getInt("flightNumber");
 		
-		out.println("Selected "+ numPassengers +" ticket(s) for "+dominter+ " flight " + flight +
-					" leaving on " + weekday + "."	
-				);
+		out.println("Selected "+ dominter+ " flight " + flight + " departing on " +deptTime + ", " + weekday 
+				+ " from " + deptairportID + 
+				" and arriving at " + arrairportID + " around " +arrivalTime +
+				" <br>Cost is $"+ fare + 
+				" per ticket with a $50 booking fee.");
+		
+		
+		
+		url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
+		connection = null;
+		Class.forName("com.mysql.jdbc.Driver");
+		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
+		statement = connection.createStatement();
 	
-				
+		String command2 = "select *  " +
+				"from Users where userType='CustomerRep'";
+		ResultSet result_reps = statement.executeQuery(command2); 
+		
+
+		
+	
 		%>
-		<br><br> Please enter a date to travel.
-		<form>
-			<input type="date" name="travelDate">
-			<input type="submit" value="Book it!">
+		
+		<br><br>
+		<form method="post" action="ReserveOneWay_tell.jsp">
+			Departure date: <input type="date" placeholder="yyyy-MM-dd" name="travelDate"><br>
+			Number of passengers: <input type="number" name="passengerCount"><br>
+			<input name="flight" value="<%=flight%>" hidden>
+			<input name="flightNumber" value="<%=flightNumber%>" hidden>
+			<input name="airlineID" value="<%=airlineID%>" hidden>			
+			<input name="routeID" value="<%=routeID%>" hidden>
+			<input name="weekday" value="<%=weekday%>" hidden>			
+			<input name="deptTime" value="<%=deptTime%>" hidden>			
+			<input name="arrivalTime" value="<%=arrivalTime%>" hidden>			
+			<input name="deptairportID" value="<%=deptairportID%>" hidden>			
+			<input name="arrairportID" value="<%=arrairportID%>" hidden>			
+			<input name="fare" value="<%=fare%>" hidden>			
+	
+			Select a seat type:
+			<select name='seatType'>
+				<option value='Aisle'>Aisle </option>
+				<option value='window'>Window</option>
+			</select><br>
+			
+			Select a class:
+			<select name='seatclass'>
+				<option value='Economy'>Economy </option>
+				<option value='Business'>Business</option>
+				<option value='First'>First</option>
+			</select><br>
+			
+			Select a meal:
+			<select name='meal'>
+				<option value='Chicken'>Chicken </option>
+				<option value='Fish'>Fish</option>
+				<option value='Steak'>Steak</option>
+				<option value='Vegetarian'>Vegetarian</option>
+				<option value='Ice cream sandwiches'>Ice cream sandwiches</option>
+				<option value='Chocolate Cake'>Chocolate Cake</option>
+			</select><br>
+			
+			Select a Customer Representative 
+			<select name="rep">
+				<%
+				while(result_reps.next()){
+					
+					out.print("<option value='");
+					out.print(result_reps.getString("username"));
+					out.print("'> ");
+					out.print(result_reps.getString("username"));
+					out.print(" </option> ");					
+				}
+				
+				%>
+				
+				
+			</select> <br><br>
+			
+			
+			<input type="submit" value="Book it!"> <br>
+			Click only once please!
 		</form>
 		
+	<% 
 		
-		<%
-	
-				
-				
+		result_reps.close();
+
 	}
-
-	result_myflight.close();
-	statement.close();
-	connection.close();
-%>
-
-
+		result_myflight.close();
+		statement.close();
+		connection.close();
+			
+	
+	
+	%>
+		
+		
 
 
 

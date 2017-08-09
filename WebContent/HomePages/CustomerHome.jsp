@@ -21,9 +21,60 @@
 	
 	
 	
-	<!-- Search for flights - rrp -->
+	<!-- Search for flights -->
 	<h3>Search for a flight and make a reservation:</h3>
 	<a href="../Reservations/SearchOneWay.jsp">Search all One-Way flights</a><br>
+
+	<!-- Search for all round trip -->
+	
+	<%
+	String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
+	Connection connection = null;
+	Class.forName("com.mysql.jdbc.Driver");
+	connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
+	Statement statement = connection.createStatement();
+	String command = "select * from Airports";
+	ResultSet result = statement.executeQuery(command); 
+	%>
+	
+	
+	
+	<br><br><b>Search all Round-Trip flights</b><br>
+	<form method="post" action="../Reservations/SearchRoundTrip_depart.jsp">
+		Departure AirportID:  
+		<select name="depart_airportID">
+			<%
+			while(result.next()){
+				
+				out.print("<option value='");
+				out.print(result.getString("airportID"));
+				out.print("'> ");
+				out.print(result.getString("airportID") + ", " + result.getString("city") + ", " + result.getString("country"));
+				out.print(" </option> ");					
+			}
+			result.beforeFirst();
+			%>
+		</select> <br>
+		
+		
+		Destination AirportID:  
+		
+		<select name="dest_airportID">
+			<%
+			while(result.next()){
+				
+				out.print("<option value='");
+				out.print(result.getString("airportID"));
+				out.print("'> ");
+				out.print(result.getString("airportID") + ", " + result.getString("city") + ", " + result.getString("country"));
+				out.print(" </option> ");					
+			}
+			result.beforeFirst();
+			%>
+		</select> <br>
+		
+		<input type="submit" value="Search">
+	</form>
 
 
 

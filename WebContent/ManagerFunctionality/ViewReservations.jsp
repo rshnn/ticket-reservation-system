@@ -91,17 +91,7 @@
 		out.print("<td>");
 		out.print("Ticket ID");
 		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("Seat Number(s)");
-		out.print("</td>");
-		
-		//make a column
-		out.print("<td>");
-		out.print("Meal Type");
-		out.print("</td>");
-		
+
 		//make a column
 		out.print("<td>");
 		out.print("Total Fare");
@@ -147,12 +137,6 @@
 			out.print("</td>");
 			out.print("<td>");			
 			out.print(result.getString("ticketID"));
-			out.print("</td>");
-			out.print("<td>");
-			out.print(result.getString("seatNos"));
-			out.print("</td>");
-			out.print("<td>");
-			out.print(result.getString("meal"));
 			out.print("</td>");
 			out.print("<td>");
 			out.print(result.getString("totalFare"));
