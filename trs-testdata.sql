@@ -281,6 +281,163 @@ insert into Arrive(routeID, arrairportID, arrivalTime) values
 /******************************************************************************/
 /******************************************************************************/
 
+insert into Flight_operates(flightNumber, airlineID, seatCount, dominter) values 
+	(1001, 'JB', 100, 'Domestic');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(1001, 'JB', 'Thursday');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(1001, 'JB', 'Friday');
+
+insert into Routes(fare) values (110); /*routeID 7*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('JB', 1001, 7);
+
+insert into Routes(fare) values (120); /*routeID 8*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('JB', 1001, 8);
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(7, 'EWR', '11:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(7, 'ATL', '15:00:00');
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(8, 'ATL', '17:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(8, 'LAX', '20:00:00');
+
+
+
+
+
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+
+insert into Flight_operates(flightNumber, airlineID, seatCount, dominter) values 
+	(1001, 'SW', 100, 'International');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(1001, 'SW', 'Sunday');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(1001, 'SW', 'Friday');
+
+insert into Routes(fare) values (210); /*routeID 9*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('SW', 1001, 9);
+
+insert into Routes(fare) values (200); /*routeID 10*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('SW', 1001, 10);
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(9, 'HND', '01:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(9, 'ATL', '10:00:00');
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(10, 'ATL', '11:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(10, 'BEK', '20:00:00');
+
+
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+
+insert into Flight_operates(flightNumber, airlineID, seatCount, dominter) values 
+	(2001, 'SW', 100, 'Domestic');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(2001, 'SW', 'Monday');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(2001, 'SW', 'Tuesday');
+
+insert into Routes(fare) values (105); /*routeID 11*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('SW', 2001, 11);
+
+insert into Routes(fare) values (98); /*routeID 12*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('SW', 2001, 12);
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(11, 'LAX', '08:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(11, 'ATL', '15:00:00');
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(12, 'ATL', '15:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(12, 'JFK', '21:00:00');
+
+
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+
+insert into Flight_operates(flightNumber, airlineID, seatCount, dominter) values 
+	(2001, 'AA', 100, 'Domestic');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(2001, 'AA', 'Monday');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(2001, 'AA', 'Friday');
+
+insert into Routes(fare) values (101); /*routeID 13*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('AA', 2001, 13);
+
+insert into Routes(fare) values (95); /*routeID 14*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('AA', 2001, 14);
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(13, 'JFK', '05:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(13, 'ATL', '10:00:00');
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(14, 'ATL', '12:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(14, 'EWR', '18:00:00');
+
+
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+
+insert into Flight_operates(flightNumber, airlineID, seatCount, dominter) values 
+	(2111, 'UA', 100, 'International');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(2111, 'UA', 'Saturday');
+insert into Days_occurs(flightNumber, airlineID, weekday) values 
+	(2111, 'UA', 'Tuesday');
+
+insert into Routes(fare) values (101); /*routeID 15*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('UA', 2111, 15);
+
+insert into Routes(fare) values (95); /*routeID 16*/
+insert into Runs(airlineID, flightNumber, routeID) values
+	('UA', 2111, 16);
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(15, 'LHR', '02:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(15, 'BEK', '10:00:00');
+
+insert into Depart(routeID, deptairportID, deptTime) values 
+	(16, 'BEK', '12:00:00');
+insert into Arrive(routeID, arrairportID, arrivalTime) values 
+	(16, 'HND', '23:00:00');
+
+
+
+
+
+/******************************************************************************/
+/******************************************************************************/
+/******************************************************************************/
+
+
 /******************************************************************************/
 /******************************************************************************/
 /******************************************************************************/
@@ -343,7 +500,6 @@ insert into Purchases (ticketID, username, resNo, flightNumber, airlineID) value
 /******************************************************************************/
 
 
-/*arya buys 1 ticket one-way for UA2221 resNo3, ticket 4*/
 insert into Reservations (dateReserved, totalFare, bookingFee, passengers, type, cust_username) values
 	('2017-01-10', 200, 50, 1, "One-Way", 'jamie');
 
@@ -358,5 +514,23 @@ insert into Tickets (seatNo, seatType, meal, class, deptDateTime, arrivalDateTim
 
 insert into Purchases (ticketID, username, resNo, flightNumber, airlineID) values 
 	(104, 'jamie', 1003, 2221, 'DA');
+
+/******************************************************************************/
+
+
+insert into Reservations (dateReserved, totalFare, bookingFee, passengers, type, cust_username) values
+	('2017-05-10', 210, 50, 1, "One-Way", 'jamie');
+
+insert into Records (resNo, username) values (1004, 'samus');
+
+insert into Tickets (seatNo, seatType, meal, class, deptDateTime, arrivalDateTime, deptAirportID, arrAirportID, cust_username) values
+	(3, "Window", "Fish", "First", 
+		"2017-07-08 11:00:00", 
+		"2017-07-08 15:00:00", 
+		"EWR", "ATL", 'jamie'
+	);
+
+insert into Purchases (ticketID, username, resNo, flightNumber, airlineID) values 
+	(105, 'jamie', 1004, 1001, 'JB');
 
 
