@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manager Home</title>
+<title>CustomerRep Home</title>
 </head>
 <body>
 
@@ -23,7 +23,7 @@
 
 	<h3>Revenue Information</h3>
 	<div align='right'>
-		<a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a>
+		<a href="../HomePages/CustomerRepHome.jsp">Back to Customer Rep Home</a>
 	</div>
 	<br>
 
@@ -60,7 +60,7 @@
 	<br>
 	<br>
 	<br>
-	<a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a>
+	<a href="../HomePages/CustomerRepHome.jsp">Back to Customer Rep Home</a>
 
 
 </body>

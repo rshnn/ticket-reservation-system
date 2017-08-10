@@ -2,6 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page
+	import="java.util.Date,java.text.SimpleDateFormat,java.text.ParseException"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -47,7 +50,7 @@
 	String dept_meal 			= request.getParameter("dept_meal");
 	String dept_deptDateTime 		= dept_travelDate + " " + dept_deptTime;
 	String dept_arrivalDateTime 		= dept_travelDate + " " + dept_arrivalTime;
-	int dept_totalFare 				= (dept_fare*passengerCount) + 50;
+	int dept_totalFare 				= (dept_fare*passengerCount);
 			
 	
 	/* returning flight info  */
@@ -67,11 +70,40 @@
 	String ret_meal 			= request.getParameter("ret_meal");
 	String ret_deptDateTime 		= ret_travelDate + " " + ret_deptTime;
 	String ret_arrivalDateTime 		= ret_travelDate + " " + ret_arrivalTime;
-	int ret_totalFare 				= (ret_fare*passengerCount) + 50;
+	int ret_totalFare 				= (ret_fare*passengerCount);
 	
-	int totalPurchase = dept_totalFare + ret_totalFare;
+	int totalFare = dept_totalFare + ret_totalFare + 50;
 	
 	/* TODO add logic to bump up the date of arrival if overnight flight */
+	/* Determine Advanced Purchase  */
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date TravelDate = dateFormat.parse(dept_travelDate);
+
+	int advanceDays = (int) (TravelDate.getTime() - reservationDate.getTime()) / (1000 * 60 * 60 * 24);
+	long tdate = TravelDate.getTime();
+	long rdate = reservationDate.getTime();
+	long seconds = (tdate - rdate) / 1000;
+	long minutes = seconds / 60;
+	long hours = minutes / 60;
+	int days = (int) hours / 24;
+	int amountSaved = 0;
+	
+	if (days > 0 && days <= 3) {
+		totalFare = totalFare - 20;
+		amountSaved = 20;
+	} else if (days > 3 && days <= 7) {
+		totalFare = totalFare - 25;
+		amountSaved = 25;
+	} else if (days > 7 && days <= 14) {
+		totalFare = totalFare - 30;
+		amountSaved = 30;
+	} else if (days > 14 && days <= 21) {
+		totalFare = totalFare - 35;
+		amountSaved = 35;
+	} else if (days > 21) {
+		totalFare = totalFare - 40;
+		amountSaved = 40;
+	} 
 
 
 
@@ -91,7 +123,7 @@
 	Statement statement = connection.createStatement();
 	
 	String command_res = "insert into Reservations (dateReserved, totalFare, bookingFee, passengers, type, cust_username) " +
-					" values ('"+reservationDate + "', " + totalPurchase + ", " + 
+					" values ('"+reservationDate + "', " + totalFare + ", " + 
 					" 50, " + passengerCount+ ", 'Round-Trip', '"+ cust_username +"')";
 	statement.executeUpdate(command_res); 
 	connection.close();
@@ -262,11 +294,31 @@
 		
 		temp--;
 	}
+	
+	
+	
+	/* Calculate length of stay - HL  */
+	dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date Dept_TravelDate = dateFormat.parse(dept_travelDate);
+	Date Ret_TravelDate = dateFormat.parse(ret_travelDate);
+	long Tdate = Dept_TravelDate.getTime();
+		long Rdate = Ret_TravelDate.getTime();
+		long Seconds = (Rdate - Tdate) / 1000;
+		long Minutes = Seconds / 60;
+		long Hours = Minutes / 60;
+		int LengthDays = (int) Hours / 24;
+	
+	out.println("<br><br>You are departing on " +dept_travelDate+ " and returning on "+ret_travelDate+ ".");
+	out.println("<br>Length of stay: " + LengthDays);
+	
+	
+	out.println("<br><br>You reserved/purchased " + days + " days in advance.");
+	out.println("You've earned an Advanced Purchase discount of $" + amountSaved);
 
 	out.println("<br><br>Succssfully added new reservation!" + 
 			" <br>Reservation Number : " + resNo + 
 			" <br>Customer Rep : " + rep_username + 
-			" <br>Total Cost : $"+ totalPurchase);
+			" <br>Total Cost : $"+ totalFare);
 
 
 

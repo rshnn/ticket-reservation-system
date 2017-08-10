@@ -19,6 +19,7 @@
 	<a href='../LogOut.jsp'>Log out</a>
 	</div>
 	
+	<a href="../Reservations/MyReservations.jsp">All My Reservations</a>
 	
 	
 	<!-- Search for flights -->
@@ -91,16 +92,10 @@
 		
 		<input type="submit" value="Search">
 	</form>
-
-
-
+	<br><br>
+	<a href='../CustomerFunctionality/BestSellerFlights.jsp'>See best seller list of flights</a>
+	<br><br>
+	<a href="../Reservations/Cancellation.jsp">Cancel Reservation</a>
 	
-	
-	
-	<ul>
-		<li><a href="../Reservations/Reservation.jsp">Reserve</a></li>
-		<li><a href="../Reservations/Search.jsp">Search Flight</a></li>
-		<li><a href="../Reservations/Cancellation.jsp">Cancel Reservation</a></li>
-	</ul>
 </body>
 </html>

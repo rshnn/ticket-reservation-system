@@ -1,5 +1,3 @@
-<!-- RRP78 Roshan Patel -->
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -44,9 +42,9 @@
 </div>
 
 <br>
-Remove employee
+<a href='../ManagerFunctionality/SearchCustomer.jsp'>Remove Employee</a><br>
 <br>
-Edit employee info
+<a href='../ManagerFunctionality/SearchEmployeeEdit.jsp'>Edit employee info</a>
 
 <br><br><br>
 
@@ -55,19 +53,23 @@ Edit employee info
 <!------------------------>
 <!-- CUSTOMER MANAGEMENT -->
 <!------------------------>
+<!------------------------>
+<!-- CUSTOMER MANAGEMENT -->
+<!------------------------>
 <h3>Customer Management</h3>
-View all customers.
+<a href='../ManagerFunctionality/ViewCustomers.jsp'>View all customers</a>
+<!-- Add customer -->
+<br><br><b>Add a new customer:</b><br>
+<div>
+	<form method="post" action="../Registration/NewUserType.jsp">
+		<input type="radio" name=userType value="Customer">Customer<br>
+	<input type="submit" value="Confirm user role">
+	</form>
+</div>
 <br>
-Add customer
-<br>
-Remove customer
+<a href='../ManagerFunctionality/SearchCustomer.jsp'>Remove Customer</a><br>
 <br>
 Edit customer info
-
-<br><br><br>
-
-
-
 
 <!------------------------>
 <!-- FLIGHT INFORMATION -->
@@ -135,17 +137,17 @@ Edit customer info
 <div>
 	<b>Get revenue summary of: </b>
 	<form method="post" action="../ManagerFunctionality/RevenueByFlight.jsp">
-		INCOMPLETE: A flight (Ex. 'UA2221') <input type="text" name=flight>
+		A flight (Ex. 'UA2221') <input type="text" name=flight>
 	<input type="submit" value="Calculate">
 	</form>
 	
 	<form method="post" action="../ManagerFunctionality/RevenueByCity.jsp">
-		INCOMPLETE: A destination city (Ex. 'Newark', 'Atlanta', 'Tokyo') <input type="text" name=city>
+		A destination city (Ex. 'Newark', 'Atlanta', 'Tokyo') <input type="text" name=city>
 	<input type="submit" value="Calculate">
 	</form>
 	
-	<form method="post" action="../ManagerFunctionality/RevenueByCustomer.jsp">
-		INCOMPLETE: A customer (by username) <input type="text" name=username>
+	<form method="post" action="../ManagerFunctionality/RevenueByUsername.jsp">
+		A customer (by username) <input type="text" name=username>
 	<input type="submit" value="Calculate">
 	</form>
 </div>
@@ -158,8 +160,8 @@ Edit customer info
 
 
 <br><br>
-INCOMPLETE: Obtain sales report for month.
-
+<a href='../ManagerFunctionality/SearchMonthAndYear.jsp'>Obtain sales report for month.</a>
+ (See how many tickets were sold for the month.)
 
 <!-- Most revenue generating customers -->
 <br><br>

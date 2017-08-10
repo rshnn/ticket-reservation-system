@@ -1,5 +1,3 @@
-<!-- RRP78 Roshan Patel -->
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -8,13 +6,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manager Home</title>
+<title>Most Active Flights</title>
 </head>
 <body>
 
 
 <h1 align="center">Ticket Reservation System</h1>
-<h2 align="center">Manager Home Page</h2>
+<h2 align="center">Customer Rep Home Page</h2>
 
 <div align="right"> <b> Logged in as 
 <%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
@@ -23,7 +21,7 @@
 </div>
 
 <h3>Flight Information</h3>
-<div align='right'><a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a></div> <br>
+<div align='right'><a href="../HomePages/CustomerRepHome.jsp">Back to CustomerRep Home</a></div> <br>
 
 <h4>Most Active Flight(s) </h4>
 
@@ -71,7 +69,7 @@ try{
 %>
 
 <br><br><br>
-<a href="../HomePages/ManagerHome.jsp">Back to Manager Home</a>
+<a href="../HomePages/CustomerRepHome.jsp">Back to CustomerRep Home</a>
 
 
 </body>

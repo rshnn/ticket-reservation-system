@@ -2,6 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page
+	import="java.util.Date,java.text.SimpleDateFormat,java.text.ParseException"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,8 +42,41 @@
 
 	int totalFare 			= (Integer.parseInt(request.getParameter("totalFare"))*passengerCount) + 50;
 
-	
+	/* Determine Advanced Purchase  */
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date TravelDate = dateFormat.parse(travelDate);
 
+
+	String deptDateTime = travelDate + " " + "00:00:00";
+	String arrivalDateTime = travelDate + " " + "00:00:00";
+	int advanceDays = (int) (TravelDate.getTime() - reservationDate.getTime()) / (1000 * 60 * 60 * 24);
+	long tdate = TravelDate.getTime();
+	long rdate = reservationDate.getTime();
+	long seconds = (tdate - rdate) / 1000;
+	long minutes = seconds / 60;
+	long hours = minutes / 60;
+	int days = (int) hours / 24;
+	int amountSaved = 0;
+	
+	if (days > 0 && days <= 3) {
+		totalFare = totalFare - 20;
+		amountSaved = 20;
+	} else if (days > 3 && days <= 7) {
+		totalFare = totalFare - 25;
+		amountSaved = 25;
+	} else if (days > 7 && days <= 14) {
+		totalFare = totalFare - 30;
+		amountSaved = 30;
+	} else if (days > 14 && days <= 21) {
+		totalFare = totalFare - 35;
+		amountSaved = 35;
+	} else if (days > 21) {
+		totalFare = totalFare - 40;
+		amountSaved = 40;
+	} 
+
+
+	
 
 	/* TODO add logic to bump up the date of arrival if overnight flight */
 	
@@ -132,8 +168,8 @@
 	 	String deptairportID	= result_routes.getString("deptairportID");
 	 	String arrairportID 	= result_routes.getString("arrairportID");
 		
-		String deptDateTime 	= travelDate + " " + deptTime;
-		String arrivalDateTime 	= travelDate + " " + arrivalTime;
+		deptDateTime 	= travelDate + " " + deptTime;
+		arrivalDateTime 	= travelDate + " " + arrivalTime;
 	 	
 		
 		int temp = passengerCount;
@@ -201,6 +237,11 @@
 		}
 		
 	}
+	
+	out.println("<br><br>You reserved/purchased " + days + " days in advance.");
+	out.println("You've earned an Advanced Purchase discount of $" + amountSaved);
+	
+	
 	out.println("<br><br>Succssfully added new reservation!" + 
 			" <br>Reservation Number : " + resNo + 
 			" <br>Customer Rep : " + rep_username + 

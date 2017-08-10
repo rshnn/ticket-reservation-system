@@ -156,6 +156,7 @@
 	result_routes.close();
 	statement.close();
 	connection.close();
+	connection.close();
 
 	%>
 		

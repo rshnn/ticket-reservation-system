@@ -6,16 +6,166 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CustomerRep Home</title>
+<title>Customer Rep Home</title>
 </head>
 <body>
 
-<h3>CustomerRep Home Page</h3>
-<h4> Logged in as 
+
+<h1 align="center">Ticket Reservation System</h1>
+<h2 align="center">Customer Rep Home Page</h2>
+
+<div align="right"> <b> Logged in as 
 <%=session.getAttribute("username")%> (<%=session.getAttribute("userType") %>).
-</h4>
+</b> <br>
+<a href='../LogOut.jsp'>Log out</a>
+</div>
 
 
+<!------------------------>
+<!-- EMPLOYEE MANAGEMENT-->
+<!------------------------>
+<h3>Employee Management</h3>
+
+ <!-- View all employees -->
+<a href="../CustomerRepFunctionality/ViewEmployees.jsp">View all employees</a>
+
+
+<br><br>
+<a href='../CustomerRepFunctionality/SearchEmployeeEdit.jsp'>Edit employee info</a>
+
+<br><br><br>
+
+
+
+<!------------------------>
+<!-- CUSTOMER MANAGEMENT -->
+<!------------------------>
+<h3>Customer Management</h3>
+<a href='../CustomerRepFunctionality/ViewCustomers.jsp'>View all customers</a>
+<!-- Add customer -->
+<br><br><b>Add a new customer:</b><br>
+<div>
+	<form method="post" action="../Registration/NewUserType.jsp">
+		<input type="radio" name=userType value="Customer">Customer <br>
+	<input type="submit" value="Confirm user role">
+	</form>
+</div>
+<br>
+<a href='../CustomerRepFunctionality/SearchUser.jsp'>Remove customer</a>
+<br>
+<br>
+<a href='../CustomerRepFunctionality/SearchCustomerEdit.jsp'>Edit customer info</a>
+<br><br>
+<a href='../CustomerRepFunctionality/SearchForOrderReceipt.jsp'>Order Receipt for Customer</a>
+
+<br><br><br>
+
+
+
+
+<!------------------------>
+<!-- FLIGHT INFORMATION -->
+<!------------------------>
+<h3>Flight and Reservation Information</h3>
+
+<!-- View all flights -->
+<a href="../CustomerRepFunctionality/ViewFlights.jsp">View all flights</a>
+
+
+<!-- View all reservations -->
+<br><br>
+<a href="../CustomerRepFunctionality/ViewReservations.jsp">View all reservations</a>
+
+
+
+<br><br>
+<!-- View all flight reservations by customer or flightNumber-->
+<div>
+	<b>Find Flight Reservation by: </b>
+	<form method="post" action="../ManagerFunctionality/ViewReservationsCustomer.jsp">
+		Customer's Name (First Last)<input type="text" name=fullname>
+	<input type="submit" value="Search">
+	</form>
+	
+	<form method="post" action="../ManagerFunctionality/ViewReservationsFlightNumber.jsp">
+		Flight Number (Ex. 2221) <input type="text" name=flightNumber>
+	<input type="submit" value="Search">
+	</form>
+</div>
+
+
+<!-- View all flights touching an airport -->
+<br>
+<div>
+	<b>Find all flights at the following airport: </b>
+	<form method="post" action="../CustomerRepFunctionality/ViewFlightsAirport.jsp">
+		AirportID (3 character code)<input type="text" name=airportID>
+	<input type="submit" value="Search">
+	</form>
+</div>
+
+
+
+<br>
+<!-- Show all customers on given flight -->
+<div>
+	<b>Show all customers who have reserved seats on: </b>
+	<form method="post" action="../CustomerRepFunctionality/ViewCustomersOnFlight.jsp">
+		AirlineID and FlightNumber (Ex: 'UA2221')<input type="text" name=flight>
+	<input type="submit" value="Search">
+	</form>
+</div>
+
+
+
+<br><br><br>
+
+
+<!------------------------>
+<!--SALES AND REVENUE  --->
+<!------------------------>
+<h3>Sales and Revenue</h3>
+
+<div>
+	<b>Get revenue summary of: </b>
+	<form method="post" action="../CustomerRepFunctionality/RevenueByFlight.jsp">
+		A flight (Ex. 'UA2221') <input type="text" name=flight>
+	<input type="submit" value="Calculate">
+	</form>
+	
+	<form method="post" action="../CustomerRepFunctionality/RevenueByCity.jsp">
+		A destination city (Ex. 'Newark', 'Atlanta', 'Tokyo') <input type="text" name=city>
+	<input type="submit" value="Calculate">
+	</form>
+	
+	<form method="post" action="../CustomerRepFunctionality/RevenueByUsername.jsp">
+		A customer (by username) <input type="text" name=username>
+	<input type="submit" value="Calculate">
+	</form>
+</div>
+
+
+	
+
+
+
+
+
+<br><br>
+<a href='../CustomerRepFunctionality/SearchMonthAndYear.jsp'>Obtain sales report for month.</a>
+ (See how many tickets were sold for the month.)
+
+<!-- Most revenue generating customers -->
+<br><br>
+<a href="../CustomerRepFunctionality/StarCustomers.jsp">Who are the star customers?!</a>
+(Customers that generated the most revenue)
+<br><br>
+
+
+
+<!-- Most active flights (most reservations) -->
+<a href="../CustomerRepFunctionality/MostActiveFlight.jsp">What is the most active flight?</a>
+(Flight with the most reservations)
 
 
 </body>
