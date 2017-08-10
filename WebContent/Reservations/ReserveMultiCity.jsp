@@ -25,83 +25,81 @@
 	<br> Weekday: <%=request.getParameter("reserveThisWeekday")%>
  --%>
 <%
-	String flight 			= request.getParameter("reserveThisFlight");
-	String routeID 			= request.getParameter("reserveThisRouteID");
-	String weekday 			= request.getParameter("reserveThisWeekday");
+
+	String flightNumber = request.getParameter("flightNumber");
+	String airlineID = request.getParameter("airlineID");
+	String weekday = request.getParameter("weekday");
+	int totalFare = 0;
+	/* Query the DB for all routes on this specific flight. */
 	
 	
-	/* Need to figure out totalFare (assuming bookingFee is always 50) */	
 	String url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
 	Connection connection = null;
 	Class.forName("com.mysql.jdbc.Driver");
 	connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
 	
 	Statement statement = connection.createStatement();
-	
-	String command = "select *  " +
-			"from Flight_operates " +
-			"join Days_occurs using (airlineID, flightNumber) " +
-			"join Runs using (airlineID, flightNumber) " +
-			"join Routes using (routeID) " +
-			"join Arrive using (routeID) " + 
-			"join Depart using (routeID) " +
-			"where concat(airlineID, flightNumber)='"+ flight +"'" +
-			"and routeID=" + routeID +" " + 
-			"and weekday='" + weekday +"'";
-	ResultSet result_myflight = statement.executeQuery(command); 
+
+	String command_route = "select name, airlineID, flightNumber, dominter, deptairportID,  " +
+		"deptTime, arrairportID, arrivalTime, fare " +
+		"from Runs " +
+		"join Flight_operates using (airlineID, flightNumber) " +
+		"join Days_occurs using (airlineID, flightNumber) " +
+		"join Airlines using (airlineID) " +
+		"join Routes using (routeID) " +
+		"join Arrive using (routeID) " +
+		"join Depart using (routeID) " +
+		"where airlineID='"+airlineID+"' and flightNumber="+flightNumber+" and weekday='"+weekday+"'";
+	ResultSet result_routes = statement.executeQuery(command_route); 
 
 	
+	
+	url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
+	connection = null;
+	Class.forName("com.mysql.jdbc.Driver");
+	connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
+	statement = connection.createStatement();
+
+	String command2 = "select *  " +
+			"from Users where userType='CustomerRep'";
+	ResultSet result_reps = statement.executeQuery(command2); 
+	
 
 	
 	
 	
-	if(result_myflight.next()){
-		int fare = result_myflight.getInt("fare");
-		String dominter = result_myflight.getString("dominter");
-		String deptairportID = result_myflight.getString("deptairportID");
-		String arrairportID = result_myflight.getString("arrairportID");
-		String deptTime = result_myflight.getString("deptTime");
-		String arrivalTime = result_myflight.getString("arrivalTime");
-		String airlineID = result_myflight.getString("airlineID");
-		int flightNumber = result_myflight.getInt("flightNumber");
+	while(result_routes.next()){
 		
-		out.println("Selected "+ dominter+ " flight " + flight + " departing on " +deptTime + ", " + weekday 
-				+ " from " + deptairportID + 
-				" and arriving at " + arrairportID + " around " +arrivalTime +
-				" <br>Cost is $"+ fare + 
-				" per ticket with a $50 booking fee.");
+		String rt_airline = result_routes.getString("name");  
+		String rt_airlineID = result_routes.getString("airlineID");
+		String rt_flightNumber = result_routes.getString("flightNumber");
+		String rt_dominter = result_routes.getString("dominter");
+		String rt_deptairportID = result_routes.getString("deptairportID");
+		String rt_deptTime = result_routes.getString("deptTime");
+		String rt_arrairportID = result_routes.getString("arrairportID");
+		String rt_arrivalTime = result_routes.getString("arrivalTime");
+		int rt_fare = result_routes.getInt("fare");
 		
+		totalFare = totalFare + rt_fare;
 		
+		out.println("<br><b>Selected "+ rt_dominter+ " flight " + rt_airlineID + rt_flightNumber + " departing on " +rt_deptTime + ", " + weekday 
+				+ " from " + rt_deptairportID + 
+				" and arriving at " + rt_arrairportID + " around " +rt_arrivalTime +
+				" <br>Cost is $"+ rt_fare + 
+				" per ticket with a $50 booking fee.</b><br><br>");
 		
-		url = "jdbc:mysql://mydbinstance.cvlvoepmucx7.us-east-2.rds.amazonaws.com:3306/trs";
-		connection = null;
-		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
-		statement = connection.createStatement();
-	
-		String command2 = "select *  " +
-				"from Users where userType='CustomerRep'";
-		ResultSet result_reps = statement.executeQuery(command2); 
-		
-
-		
-	
-		%>
+	}
+	%>
 		
 		<br><br>
-		<form method="post" action="ReserveOneWay_tell.jsp">
+		<form method="post" action="ReserveMultiCity_tell.jsp">
 			Departure date: <input type="date" placeholder="yyyy-MM-dd" name="travelDate"><br>
 			Number of passengers: <input type="number" name="passengerCount"><br>
-			<input name="flight" value="<%=flight%>" hidden>
 			<input name="flightNumber" value="<%=flightNumber%>" hidden>
 			<input name="airlineID" value="<%=airlineID%>" hidden>			
-			<input name="routeID" value="<%=routeID%>" hidden>
 			<input name="weekday" value="<%=weekday%>" hidden>			
-			<input name="deptTime" value="<%=deptTime%>" hidden>			
-			<input name="arrivalTime" value="<%=arrivalTime%>" hidden>			
-			<input name="deptairportID" value="<%=deptairportID%>" hidden>			
-			<input name="arrairportID" value="<%=arrairportID%>" hidden>			
-			<input name="fare" value="<%=fare%>" hidden>			
+			<input name="totalFare" value="<%=totalFare%>" hidden>			
+
 	
 			Select a seat type:
 			<select name='seatType'>
@@ -149,20 +147,18 @@
 		</form>
 		
 	<% 
-		result_reps.close();
 
-
-	}
+		
 	
-	result_myflight.close();
+	
+	result_reps.close();
+
+	result_routes.close();
 	statement.close();
 	connection.close();
-		
-	
+
 	%>
 		
-		
-
 
 
 	<br><br><a href="../HomePages/CustomerHome.jsp">Back to Customer Home</a>

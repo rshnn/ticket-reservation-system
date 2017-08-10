@@ -133,8 +133,9 @@
 	statement.executeUpdate(command_rec); 
 	connection.close();
 	
+	int temp = passengerCount;
 	
-	while(passengerCount > 0){
+	while(temp > 0){
 		
 		
 		/*************************************************************************************/
@@ -188,7 +189,7 @@
 		connection.close();
 		
 	
-		out.println("<br>Succssfully purchased new departing ticket!" + 
+		out.println("<br>Succssfully purchased new departing ticket for passenger "+temp+"!" + 
 				" <br>TicketID : " + dept_ticketID + 
 				" for " + dept_airlineID + dept_flightNumber);
 	
@@ -248,9 +249,9 @@
 		connection.close();
 		
 	
-		out.println("<br>Succssfully purchased new returning ticket!" + 
+		out.println("<br>Succssfully purchased new returning ticket for passenger "+temp+"!" + 
 				" <br>TicketID : " + ret_ticketID + 
-				" for "+ ret_airlineID + ret_flightNumber );
+				" for "+ ret_airlineID + ret_flightNumber + "<br>" );
 	
 
 
@@ -259,7 +260,7 @@
 		connection.close();
 		
 		
-		passengerCount--;
+		temp--;
 	}
 
 	out.println("<br><br>Succssfully added new reservation!" + 

@@ -40,23 +40,30 @@ try{
 	while(result.next()){
 		
 		
+		
 		int flightNumber = result.getInt("flightNumber");
 		String airlineID = result.getString("airlineID");
 		String weekday = result.getString("weekday");
 		
-		out.println("<br><b>Flight " + airlineID + flightNumber + " departing on " + weekday+ ". </b><br>");
+		out.print("<br><b>Flight " + airlineID + flightNumber + " departing on " + weekday+ ". </b>");
 		
-	
+		%>
+		<form method="post" action="ReserveMultiCity.jsp">
+			<input name='flightNumber' value="<%=flightNumber%>" hidden>
+			<input name='airlineID' value="<%=airlineID%>" hidden>
+			<input name='weekday' value="<%=weekday%>" hidden>
+			<input type='submit' value="Book this series">
+		</form>
+		<%
 		
 		/* Query details of each route on this flight */
-		
-
 		Connection connection2 = null;
+
 		Class.forName("com.mysql.jdbc.Driver");
 		connection2 = DriverManager.getConnection(url, "rshn", "youknownothingJonSnow");
-		
+
 		Statement statement2 = connection2.createStatement();
-		
+
 		String command_route = "select name, concat(airlineID, flightNumber) flight, dominter, deptairportID,  " +
 				"deptTime, arrairportID, arrivalTime, fare " +
 				"from Runs " +
@@ -66,12 +73,11 @@ try{
 				"join Routes using (routeID) " +
 				"join Arrive using (routeID) " +
 				"join Depart using (routeID) " +
-				"where airlineID='"+airlineID+"' and flightNumber="+flightNumber+" and weekday="+weekday+"";
+				"where airlineID='"+airlineID+"' and flightNumber="+flightNumber+" and weekday='"+weekday+"'";
 		ResultSet result_route = statement2.executeQuery(command_route); 
-		/* This query statement terminates the previous for some reason.  Ez solution is to store all flight+weekdays into list */
 		
+
 		
-		/* 
 		out.print("<table border='1'>");
 		//make a row
 		out.print("<tr>");
@@ -155,15 +161,16 @@ try{
 			
 		}
 		
-		out.print("</table>");
-		 */
+		out.print("</table><br>");
 		
+		connection2.close();
 
-	}
+	}	
 
 	result.close();
 	statement.close();
 	connection.close();
+
 	
 } catch (Exception e){
 

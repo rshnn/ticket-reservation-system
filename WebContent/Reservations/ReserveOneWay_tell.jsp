@@ -105,8 +105,9 @@
 	statement.executeUpdate(command_rec); 
 	connection.close();
 	
+	int temp = passengerCount;
 	
-	while(passengerCount > 0){
+	while(temp > 0){
 		/*************************************************************************************/
 		/* Write into Tickets */
 		/* Got everything we need stored in globals. 
@@ -160,12 +161,11 @@
 		connection.close();
 		
 	
-		out.println("<br>Succssfully purchased new ticket!<br>" + 
+		out.println("<br>Succssfully purchased new ticket for passenger "+temp+"!" + 
 				" <br>TicketID : " + ticketID +
-				" for " + airlineID + flightNumber);
+				" for " + airlineID + flightNumber + "<br><br>");
 	
-	
-		passengerCount--;
+		temp--;
 	}
 
 	out.println("<br><br>Succssfully added new reservation!" + 
