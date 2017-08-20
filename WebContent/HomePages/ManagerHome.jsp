@@ -69,7 +69,8 @@
 <br>
 <a href='../ManagerFunctionality/SearchCustomer.jsp'>Remove Customer</a><br>
 <br>
-Edit customer info
+
+<a href='../ManagerFunctionality/SearchCustomerEdit.jsp'>Edit customer info</a>
 
 <!------------------------>
 <!-- FLIGHT INFORMATION -->

@@ -1,0 +1,145 @@
+﻿# Group 4
+# authors.txt
+# cs336 Ticket-Reservation-System
+
+
+## Members
++ Han Nyan Lin (HL)
++ Roshan Patel (RP)
++ Zaid Hussain (ZH) 
++ Gurpreet Kaur (GK) 
+
+
+
+
+# Design
+
+
+During the design phase, we were tasked with designing an ER diagram that could represent flights.  We all virtually contributed to an ER diagram design and continued to revise it into the development of the website.   
+
+
+# Implementation 
+
+
+The implementation can be divided into user-category work, reservation-category related work, and revenue-category work. 
+
+
+The user related work includes handling login information, constructing home pages for each user type, and adding the ability to view, edit, and delete specific types of users depending on the session's permissions.  The design and planning of this portion was done by the entire team.  (HL) developed the login and logout pages.  (ZH & RP) divided the tasks of the user-category of work between themselves.  
+
+
+The reservation category work includes developing pages that view and make reservations of varying types.  The design and planning of this was a group effort.  The development of these JSP pages was divided between (RP & HL).  Debugging and the addition of minor features were also handled jointly by all members.
+
+
+The revenue-category work includes JSP pages that display revenues based on reservations made.  These views are available to the manager.  The design and development of these JSPs were handled jointly by (ZH, RP, and HL).  
+
+
+
+
+
+
+
+
+
+
+# File list and contributors 
+
+
+The below is a tree structure showing a file hierarchy of our project.  Next to each file are initials with the contributing authors of that file. 
+
+
+.
+├── src
+├── trs-createtables.sql (ALL)
+├── trs-testdata.sql (ALL)
+└── WebContent
+    ├── CustomerFunctionality
+    │   └── BestSellerFlights.jsp  (RP)
+    ├── CustomerRepFunctionality
+    │   ├── EditCustomerHandler.jsp  (ZH, RP)
+    │   ├── EditCustomer.jsp  (RP, ZH)
+    │   ├── EditEmployeeHandler.jsp  (RP, ZH)
+    │   ├── EditEmployee.jsp  (RP, ZH)
+    │   ├── MostActiveFlight.jsp  (RP)
+    │   ├── PrintOrder.jsp (ZH)
+    │   ├── RemoveCustomer.jsp   (ZH)
+    │   ├── RevenueByCity.jsp   (RP)
+    │   ├── RevenueByFlight.jsp   (HL)
+    │   ├── RevenueByUsername.jsp   (RP)
+    │   ├── SearchCustomerEdit.jsp   (ZH)
+    │   ├── SearchCustomer.jsp   (ZH)
+    │   ├── SearchEmployeeEdit.jsp   (ZH)
+    │   ├── SearchForOrderReceipt.jsp   (ZH)
+    │   ├── SearchMonthAndYear.jsp   (ZH)
+    │   ├── ShowOrderByCustomer.jsp   (ZH)
+    │   ├── StarCustomers.jsp   (RP)
+    │   ├── ViewCustomers.jsp   (RP)
+    │   ├── ViewCustomersOnFlight.jsp   (RP, ZH)
+    │   ├── ViewEmployees.jsp   (RP, ZH)
+    │   ├── ViewFlightsAirport.jsp   (RP, ZH)
+    │   ├── ViewFlights.jsp   (RP, ZH)
+    │   ├── ViewReservationsCustomer.jsp   (RP, ZH)
+    │   ├── ViewReservationsFlightNumber.jsp   (RP, ZH)
+    │   ├── ViewReservations.jsp   (RP, ZH)
+    │   └── ViewSalesReport.jsp   (ZH)
+    ├── Home.jsp (HL)
+    ├── HomePages
+    │   ├── CustomerHome.jsp (HL)
+    │   ├── CustomerRepHome.jsp (ZH)
+    │   └── ManagerHome.jsp (RP)
+    ├── Index.jsp (HL)
+    ├── LogIn.jsp (HL)
+    ├── LogOut.jsp (HL)
+    ├── ManagerFunctionality
+    │   ├── EditCustomerHandler.jsp (ZH)
+    │   ├── EditCustomer.jsp (ZH)
+    │   ├── EditEmployeeHandler.jsp  (ZH)
+    │   ├── EditEmployee.jsp (ZH)
+    │   ├── MostActiveFlight.jsp  (RP)
+    │   ├── RemoveCustomer.jsp  (ZH)
+    │   ├── RemoveEmployee.jsp  (ZH)
+    │   ├── RevenueByCity.jsp  (RP)
+    │   ├── RevenueByFlight.jsp  (HL)
+    │   ├── RevenueByUsername.jsp (RP)
+    │   ├── SearchCustomerEdit.jsp (ZH)
+    │   ├── SearchCustomer.jsp (ZH)
+    │   ├── SearchEmployeeEdit.jsp (ZH)
+    │   ├── SearchEmployee.jsp (ZH)
+    │   ├── SearchMonthAndYear.jsp  (ZH)
+    │   ├── StarCustomers.jsp  (RP)
+    │   ├── ViewCustomers.jsp  (RP, ZH)
+    │   ├── ViewCustomersOnFlight.jsp (RP)
+    │   ├── ViewEmployees.jsp (RP, ZH)
+    │   ├── ViewFlightsAirport.jsp  (RP, ZH)
+    │   ├── ViewFlights.jsp    (RP, ZH)
+    │   ├── ViewReservationsCustomer.jsp  (ZH, RP) 
+    │   ├── ViewReservationsFlightNumber.jsp   (ZH, RP)
+    │   ├── ViewReservations.jsp   (RP, ZH)
+    │   └── ViewSalesReport.jsp  (RP, ZH)
+    ├── META-INF
+    │   └── MANIFEST.MF
+    ├── Registered.jsp (HL)
+    ├── Registration
+    │   ├── CustomerRegistration.jsp  (HL, RP)
+    │   ├── CustomerRepRegistration.jsp  (HL, RP)
+    │   ├── ManagerRegistration.jsp  (HL, RP)
+    │   ├── NewUserType.jsp  (HL)
+    │   └── Register.jsp  (HL)
+    ├── Reservations
+    │   ├── Cancel.jsp  (HL)
+    │   ├── Cancellation.jsp  (HL)
+    │   ├── MyReservations.jsp  (HL)
+    │   ├── ReserveMultiCity.jsp  (RP)
+    │   ├── ReserveMultiCity_tell.jsp  (RP)
+    │   ├── ReserveOneWay.jsp  (HL, RP)
+    │   ├── ReserveOneWay_tell.jsp  (RP, HL)
+    │   ├── ReserveRoundTrip.jsp  (RP)
+    │   ├── ReserveRoundTrip_tell.jsp  (HL, RP)
+    │   ├── SearchDomInter.jsp  (RP)
+    │   ├── SearchMultiCity.jsp (RP, HL)
+    │   ├── SearchOneWay.jsp (RP)
+    │   ├── SearchRoundTrip_depart.jsp  (RP)
+    │   └── SearchRoundTrip_return.jsp  (RP)
+    └── WEB-INF
+        ├── lib
+        │   └── mysql-connector-java-5.1.29-bin.jar
+        └── web.xml
